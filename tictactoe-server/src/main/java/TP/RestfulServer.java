@@ -5,7 +5,12 @@ import spark.Request;
 import spark.Response;
 import static spark.Spark.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class RestfulServer {
+
+    private final Logger log = LoggerFactory.getLogger(RestfulServer.class);
     Board board;
 
     public RestfulServer(Board board){
