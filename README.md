@@ -1,7 +1,7 @@
 # Term Project: TP-D2
 ##### Authors:
-Kiera Jost
-Wyatt Poulos
+Kiera Jost,
+Wyatt Poulos,
 Megan Booher
 
 ## Description
