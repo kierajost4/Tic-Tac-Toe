@@ -21,7 +21,7 @@ This is a bash script that runs the commands:
 1. mvn clean
 2. mvn package
 
-Then to run the web server, run the command:
+Then to run the application, run the command:
 ```
 java -cp target/TP-jar-with-dependencies.jar TP.RestfulServer
 ```
