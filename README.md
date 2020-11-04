@@ -34,5 +34,5 @@ docker build -t myimage .
 ```
 Then, to run the Docker image as a container, run the command:
 ```
-docker run -p 8080:8080 my image
+docker run -p 8080:8080 myimage
 ``` 
