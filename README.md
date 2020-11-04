@@ -10,7 +10,7 @@ The purpose of our project is to create a Tic-Tac-Toe game by enabling communica
 ##### tictactoe-server
 This is a working, RESTful web server. It is able to receive HTTP requests and log the request body to STD out. *tictactoe-server* will eventually contain the logic of the Tic-Tac-Toe game and store past games. It will also service all HTTP requests needed from the client (game driver).
 ##### tictactoe-client 
-This will eventually be the containerized client that communicates with the web server. It will be responsible for taking in the input from the players, sending HTTP requests to the web server, and producing the output for the players.
+This will eventually be the containerized client that communicates with the web server. It will be responsible for taking in the input from the players, sending HTTP requests to the web server, and producing the output to the players.
 
 ## Usage
 To compile the RESTful web server, make sure you are at the root of the the *tictactoe-server* directory, and run the command:
