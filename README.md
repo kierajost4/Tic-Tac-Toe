@@ -28,7 +28,7 @@ java -cp target/TP-jar-with-dependencies.jar TP.RestfulServer
 ## Docker
 Use the *Dockerfile* to build and run the RESTful web server in a containerized environment.
 
-To use the *Dockerfile* to build the docker image, make sure you are at the root of the *tictactoe-server* directory, and run the command:
+To use the *Dockerfile* to build a docker image, make sure you are at the root of the *tictactoe-server* directory, and run the command:
 ```
 docker build -t myimage .
 ```
