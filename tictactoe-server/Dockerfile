@@ -1,7 +1,4 @@
-FROM ubuntu:latest
-
-RUN apt-get update
-RUN apt-get install -y maven
+FROM maven:latest
 
 WORKDIR /code
 
@@ -14,4 +11,4 @@ RUN ["mvn", "clean"]
 RUN ["mvn", "package"]
 
 EXPOSE 8080
-CMD ["/usr/bin/java", "-jar", "target/TP-jar-with-dependencies.jar"]
+CMD ["java", "-jar", "target/TP-jar-with-dependencies.jar"]
