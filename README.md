@@ -1,4 +1,4 @@
-# Term Project: TP-D2
+# Term Project: Tic-Tac-Toe
 ##### Authors:
 Kiera Jost,
 Wyatt Poulos,
