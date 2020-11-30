@@ -12,9 +12,14 @@ public class RestfulServer {
 
     private final Logger log = LoggerFactory.getLogger(RestfulServer.class);
     Board board;
+    Player player1;
+    Player player2;
 
-    public RestfulServer(Board board){
-        this.board = board;
+
+    public RestfulServer(){
+        this.board = new Board();
+        this.player1 = new Player("Player 1", 'X');
+        this.player2 = new Player("Player 2", 'O');
         this.configureRestfulApiServer();
         this.processRestfulApiRequests();
     }
@@ -31,10 +36,10 @@ public class RestfulServer {
         Spark.get("/board", this::handleBoardRequests);
         Spark.get("/boardPositions", this::handleBoardPositionsRequests);
 
-
-
         //all other routes
     }
+
+
 
     public Object handleBoardRequests(Request request, Response response){
         Gson gson = new Gson();
@@ -93,8 +98,8 @@ public class RestfulServer {
     }
 
     public static void main(String[] programArgs){
-        Board board = new Board();
-        RestfulServer restfulServer = new RestfulServer(board); // never returns, listens to requests
+        
+        RestfulServer restfulServer = new RestfulServer(); // never returns, listens to requests
     }
 
 }
