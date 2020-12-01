@@ -55,8 +55,11 @@
             <descriptorRefs>
               <descriptorRef>jar-with-dependencies</descriptorRef>
             </descriptorRefs>
-
-
+            <archive>
+              <manifest>
+                <mainClass>TP.Game</mainClass>
+              </manifest>
+            </archive>
           </configuration>
         </execution>
 </executions>
