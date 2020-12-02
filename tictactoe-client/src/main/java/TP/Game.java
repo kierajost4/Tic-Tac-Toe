@@ -50,7 +50,7 @@ public class Game {
 			return responseBody;
         } finally {
             httpclient.close();
-        }		
+        }
 	}
 
 	public static void httpPostRequest(String endpoint, char position) throws Exception{
@@ -61,7 +61,7 @@ public class Game {
 
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setHeader("Content-type", "application/json");
-		
+
 			String JsonInput = "{position: " + position + "}";
 
 			StringEntity stringEntity = new StringEntity(JsonInput);
@@ -85,7 +85,7 @@ public class Game {
  				System.out.println("Response : \n"+result.append(line));
 			 }
 			 */
-		 
+
 			}finally{}
 	}
 
@@ -118,6 +118,7 @@ public class Game {
 		Scanner scan = new Scanner(System.in);
 		boolean newGame = true;
 
+
 		while(newGame) {
 			boolean inGame = true, turn = true;
 			while(inGame) {
@@ -143,8 +144,10 @@ public class Game {
 					}finally{}
 					turn = true;
 				}
-				
-				inGame = false;
+				try{
+						httpGetRequest("http://localhost:8080/checkForWin");
+				}finally{}
+				//inGame = false;
 			}
 		}
 	}

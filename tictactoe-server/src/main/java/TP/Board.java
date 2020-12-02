@@ -47,6 +47,31 @@ public class Board {
 			currentGame[2][2] = symbol;
 			break;
 		}
-		
 	}
+
+  public char checkForWin() {
+    for(int i = 0; i < 3; i++) {
+      if(currentGame[i][0] == currentGame[i][1] && currentGame[i][2] == currentGame[i][2] && hasBlankCheck(currentGame[i][0],currentGame[i][1],currentGame[i][2])) {
+        return currentGame[i][0];
+      }
+      if(currentGame[0][i] == currentGame[1][i] && currentGame[1][i] == currentGame[2][i] && hasBlankCheck(currentGame[0][i],currentGame[1][i],currentGame[2][i])) {
+        return currentGame[0][i];
+      }
+    }
+
+    if(currentGame[0][0] == currentGame[1][1] && currentGame[1][1] == currentGame[2][2] && hasBlankCheck(currentGame[0][0],currentGame[1][1],currentGame[2][2])) {
+      return currentGame[0][0];
+    }
+    if(currentGame[0][2] == currentGame[1][1] && currentGame[1][1] == currentGame[2][0] && hasBlankCheck(currentGame[0][2],currentGame[1][1],currentGame[2][0])) {
+      return currentGame[0][2];
+    }
+    return ' ';
+  }
+
+  private boolean hasBlankCheck(char c1, char c2, char c3) {
+    if(c1 == ' ' || c2 == ' ' || c3 == ' ') {
+      return false;
+    }
+    return true;
+  }
 }
