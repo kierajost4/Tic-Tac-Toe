@@ -51,7 +51,7 @@ public class Board {
 
   public char checkForWin() {
     for(int i = 0; i < 3; i++) {
-      if(currentGame[i][0] == currentGame[i][1] && currentGame[i][2] == currentGame[i][2] && hasBlankCheck(currentGame[i][0],currentGame[i][1],currentGame[i][2])) {
+      if(currentGame[i][0] == currentGame[i][1] && currentGame[i][1] == currentGame[i][2] && hasBlankCheck(currentGame[i][0],currentGame[i][1],currentGame[i][2])) {
         return currentGame[i][0];
       }
       if(currentGame[0][i] == currentGame[1][i] && currentGame[1][i] == currentGame[2][i] && hasBlankCheck(currentGame[0][i],currentGame[1][i],currentGame[2][i])) {
