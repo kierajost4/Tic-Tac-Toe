@@ -1,9 +1,11 @@
 package TP;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import spark.Spark;
 import spark.Request;
 import spark.Response;
 import static spark.Spark.*;
+import com.google.gson.JsonElement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,25 +34,19 @@ public class RestfulServer {
     private void processRestfulApiRequests(){
 
         Spark.post("/", this::echoPost);
+        Spark.post("/updateBoardP1", this::updateBoardP1);
+        Spark.post("/updateBoardP2", this::updateBoardP2);
         Spark.get("/", this::echoRequest);
         Spark.get("/board", this::handleBoardRequests);
-        Spark.get("/boardPositions", this::handleBoardPositionsRequests);
 
         //all other routes
     }
 
-
+    
 
     public Object handleBoardRequests(Request request, Response response){
         Gson gson = new Gson();
         String json = gson.toJson(board.getCurrentGame());
-        // process request
-        return json;
-    }
-
-    public Object handleBoardPositionsRequests(Request request, Response response) {
-        Gson gson = new Gson();
-        String json = gson.toJson(board.getBoardPositions());
         // process request
         return json;
     }
@@ -65,7 +61,24 @@ public class RestfulServer {
         return HttpRequestToJson(request);
     }
 
-    //TODO
+    private String updateBoardP1(Request request, Response response){
+
+        System.out.println(request.body());
+        char position = request.body().charAt(11);
+        System.out.println(position);
+        board.move(position, player1.getIcon());
+        return "";
+    }
+
+    private String updateBoardP2(Request request, Response response){
+
+        System.out.println(request.body());
+        char position = request.body().charAt(11);
+        System.out.println(position);
+        board.move(position, player2.getIcon());
+        return "";
+    }
+
     private String echoPost(Request request, Response response){
         System.out.println(request.body());
         return "";
