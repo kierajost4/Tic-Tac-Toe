@@ -32,7 +32,6 @@ public class RestfulServer {
     }
 
     private void processRestfulApiRequests(){
-
         Spark.post("/", this::echoPost);
         Spark.post("/updateBoardP1", this::updateBoardP1);
         Spark.post("/updateBoardP2", this::updateBoardP2);
@@ -40,7 +39,6 @@ public class RestfulServer {
         Spark.get("/board", this::handleBoardRequests);
         Spark.get("/checkForWin", this::checkForWin);
         Spark.get("/saveAndReset", this::saveAndReset);
-
         //all other routes
     }
 
@@ -58,34 +56,24 @@ public class RestfulServer {
     public Object handleBoardRequests(Request request, Response response){
         Gson gson = new Gson();
         String json = gson.toJson(board.getCurrentGame());
-        // process request
         return json;
     }
 
     private String echoRequest(Request request, Response response){
-        //do these need to go in every request method?
         response.type("application/json");
         response.header("Access-Control-Allow-Origin", "*");
         response.status(200);
-        //
-
         return HttpRequestToJson(request);
     }
 
     private String updateBoardP1(Request request, Response response){
-
-        System.out.println(request.body());
         char position = request.body().charAt(11);
-        System.out.println(position);
         board.move(position, player1.getIcon());
         return "";
     }
 
     private String updateBoardP2(Request request, Response response){
-
-        System.out.println(request.body());
         char position = request.body().charAt(11);
-        System.out.println(position);
         board.move(position, player2.getIcon());
         return "";
     }
@@ -122,8 +110,6 @@ public class RestfulServer {
     }
 
     public static void main(String[] programArgs){
-
         RestfulServer restfulServer = new RestfulServer(); // never returns, listens to requests
     }
-
 }

@@ -1,15 +1,14 @@
 package TP;
-import org.apache.http.*;
 
 import java.util.Scanner;
 import java.io.*;
 
 import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 
+import org.apache.http.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -30,8 +29,6 @@ public class Game {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
 			HttpGet httpget = new HttpGet(url);
-			//System.out.println("Executing request " + httpget.getRequestLine());
-
 			// Create a custom response handler
 			ResponseHandler<String> responseHandler = new ResponseHandler<String>(){
 				@Override
@@ -76,15 +73,7 @@ public class Game {
 				throw new RuntimeException("Failed : HTTP error code : "
 				+ response.getStatusLine().getStatusCode());
 			}
-
-			/*StringBuffer result = new StringBuffer();
- 			String line = "";
- 			while ((line = br.readLine()) != null) {
- 				System.out.println("Response : \n"+result.append(line));
-			 }
-			 */
-
-			}finally{}
+		} finally{}
 	}
 
 	public static char[][] formatBoard(String board){
@@ -143,17 +132,24 @@ public class Game {
 					turn = true;
 				}
 				try{
-						String w = httpGetRequest("http://localhost:8080/checkForWin");
-						char winner = w.charAt(0);
-						//System.out.println("JSON:" + winner + ".");
-							if(winner == 'X') {
-								System.out.println("Player 1 wins this game!");
-								inGame = false;
-							}
-							if(winner == 'O') {
-								System.out.println("Player 2 wins this game!");
-								inGame = false;
-							}
+					String w = httpGetRequest("http://localhost:8080/checkForWin");
+					char winner = w.charAt(0);
+					//System.out.println("JSON:" + winner + ".");
+					if(winner != ' '){
+						try{
+							String b = httpGetRequest("http://localhost:8080/board");
+							printBoard(formatBoard(b));
+						} finally{}
+						
+						if(winner == 'X') {
+							System.out.println("Player 1 wins this game!");
+							inGame = false;
+						}
+						if(winner == 'O') {
+							System.out.println("Player 2 wins this game!");
+							inGame = false;
+						}
+					}
 				}finally{}
 			}
 			System.out.print("Want to start a new game?(y/n):");
