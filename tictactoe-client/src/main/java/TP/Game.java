@@ -66,9 +66,7 @@ public class Game {
 
 			StringEntity stringEntity = new StringEntity(JsonInput);
 			httpPost.setEntity(stringEntity);
-			System.out.println("Executing request " + httpPost.getRequestLine());
 			HttpResponse response = httpclient.execute(httpPost);
-			System.out.println(response.getStatusLine().getStatusCode());
 
 
 			BufferedReader br = new BufferedReader(
@@ -118,9 +116,9 @@ public class Game {
 		Scanner scan = new Scanner(System.in);
 		boolean newGame = true;
 
-
 		while(newGame) {
-			boolean inGame = true, turn = true;
+			boolean inGame = true;
+			boolean turn = true;
 			while(inGame) {
 
 				try{
@@ -145,10 +143,28 @@ public class Game {
 					turn = true;
 				}
 				try{
-						httpGetRequest("http://localhost:8080/checkForWin");
+						String w = httpGetRequest("http://localhost:8080/checkForWin");
+						char winner = w.charAt(0);
+						//System.out.println("JSON:" + winner + ".");
+							if(winner == 'X') {
+								System.out.println("Player 1 wins this game!");
+								inGame = false;
+							}
+							if(winner == 'O') {
+								System.out.println("Player 2 wins this game!");
+								inGame = false;
+							}
 				}finally{}
-				//inGame = false;
 			}
+			System.out.print("Want to start a new game?(y/n):");
+			if(scan.next().charAt(0) == 'n') {
+				newGame = false;
+				System.out.println("GOODBYE!");
+			}
+
+			try{
+				httpGetRequest("http://localhost:8080/saveAndReset");
+			}finally{};
 		}
 	}
 }

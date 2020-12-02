@@ -74,4 +74,21 @@ public class Board {
     }
     return true;
   }
+
+  public void resetBoard() {
+    currentGame[0][0] = '1';
+    currentGame[0][1] = '2';
+    currentGame[0][2] = '3';
+    currentGame[1][0] = '4';
+    currentGame[1][1] = '5';
+    currentGame[1][2] = '6';
+    currentGame[2][0] = '7';
+    currentGame[2][1] = '8';
+    currentGame[2][2] = '9';
+    System.out.println("Board Reset!");
+  }
+
+  public void saveGame() {
+    savedGames.add(currentGame);
+  }
 }

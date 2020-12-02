@@ -39,28 +39,22 @@ public class RestfulServer {
         Spark.get("/", this::echoRequest);
         Spark.get("/board", this::handleBoardRequests);
         Spark.get("/checkForWin", this::checkForWin);
+        Spark.get("/saveAndReset", this::saveAndReset);
 
         //all other routes
     }
 
-
-    public Object checkForWin(Request request, Response response){
-        char winner = board.checkForWin();
-        System.out.print("Checked for win\n");
-
-        if(winner != ' ') {
-          if(winner == 'X') {
-            System.out.println("X wins this game!");
-          }
-          if(winner == 'O') {
-            System.out.println("O wins this game!");
-          }
-        }
-        //
-        // Gson gson = new Gson();
-        // String json = gson.toJson(board.checkForWin());
-        return ' ';
+    public String saveAndReset(Request request, Response response){
+        board.saveGame();
+        board.resetBoard();
+        return " ";
     }
+
+    public String checkForWin(Request request, Response response){
+        String winner = Character.toString(board.checkForWin());
+        return winner;
+    }
+
     public Object handleBoardRequests(Request request, Response response){
         Gson gson = new Gson();
         String json = gson.toJson(board.getCurrentGame());
