@@ -74,7 +74,54 @@ public class Board {
     		return false;
     	}
     	return true;
-  	}
+	  }
+	  
+	public boolean isInRange(char position){
+		
+		if(position >= 49 && position<= 57){
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isValidPosition(char position){
+		char c = ' ';
+		switch(position) {
+			case '1':
+				c = currentGame[0][0];
+				break;
+			case '2':
+				c = currentGame[0][1];
+				break;
+			case '3':
+				c = currentGame[0][2];
+				break;
+			case '4':
+				c = currentGame[1][0];
+				break;
+			case '5':
+				 c= currentGame[1][1];
+				break;
+			case '6':
+				c = currentGame[1][2];
+				break;
+			case '7':
+				c = currentGame[2][0];
+				break;
+			case '8':
+				 c = currentGame[2][1];
+				break;
+			case '9':
+				c = currentGame[2][2];
+				break;
+			}
+
+		if(c != 'X' && c != 'O'){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	public void resetBoard() {
     	currentGame[0][0] = '1';

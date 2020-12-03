@@ -1,14 +1,11 @@
 package TP;
 
 import java.util.Scanner;
-import java.io.*;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 
-import org.apache.http.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -50,8 +47,8 @@ public class Game {
         }
 	}
 
-	public static void httpPostRequest(String endpoint, char position) throws Exception{
-
+	public static String httpPostRequest(String endpoint, char position) throws Exception{
+		String result = "";
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try{
 			HttpPost httpPost = new HttpPost(endpoint);
@@ -61,7 +58,7 @@ public class Game {
 
 			String JsonInput = "{position: " + position + "}";
 
-			StringEntity stringEntity = new StringEntity(JsonInput);
+			StringEntity stringEntity = new StringEntity(JsonInput); 
 			httpPost.setEntity(stringEntity);
 			HttpResponse response = httpclient.execute(httpPost);
 
@@ -73,7 +70,11 @@ public class Game {
 				throw new RuntimeException("Failed : HTTP error code : "
 				+ response.getStatusLine().getStatusCode());
 			}
+
+			result = br.readLine();
+
 		} finally{}
+		return result;
 	}
 
 	public static char[][] formatBoard(String board){
@@ -109,27 +110,50 @@ public class Game {
 			boolean inGame = true;
 			boolean turn = true;
 			while(inGame) {
-
 				try{
 					String board = httpGetRequest("http://localhost:8080/board");
 					printBoard(formatBoard(board));
 				} finally{}
 				if(turn){
 					System.out.println("It's Player 1's turn.");
-					System.out.print("Choose a number to play on:");
-					char position1 = scan.next().charAt(0);
-					try{
-						httpPostRequest("http://localhost:8080/updateBoardP1",position1);
-					}finally{}
-					turn = false;
-				} else{
+					System.out.print("Choose a number between 1 and 9 to play on: ");
+					String input1 = scan.next();
+					if(input1.length() != 1){
+						System.out.println("This number is not in range! Player 1 try again.");
+					}else{
+						char position1 = input1.charAt(0);
+						try{
+							String valid = httpPostRequest("http://localhost:8080/checkIfValid",position1);
+							if(valid.equals("in range and valid")){
+								httpPostRequest("http://localhost:8080/updateBoardP1",position1);
+								turn = false;
+							} else if (valid.equals("not valid")) {
+								System.out.println("This number has already been taken! Player 1 choose again");
+							}else{
+								System.out.println("This number is not in range! Player 1 choose again.");	
+							}
+						}finally{}
+					}
+				} else{  
 					System.out.println("It's Player 2's turn.");
-					System.out.print("Choose a number to play on:");
-					char position2 = scan.next().charAt(0);
-					try{
-						httpPostRequest("http://localhost:8080/updateBoardP2",position2);
-					}finally{}
-					turn = true;
+					System.out.print("Choose a number between 1 and 9 to play on:");
+					String input2 = scan.next();
+					if(input2.length() != 1){
+						System.out.println("This number is not in range! Player 2 try again.");
+					} else {
+						char position2 = input2.charAt(0);
+						try{
+							String valid = httpPostRequest("http://localhost:8080/checkIfValid",position2);
+							if(valid.equals("in range and valid")){
+								httpPostRequest("http://localhost:8080/updateBoardP2",position2);
+								turn = true;
+							} else if (valid.equals("not valid")) {
+								System.out.println("This number has already been taken! Player 2 try again");
+							}else{
+								System.out.println("This number is not in range! Player 2 try again.");	
+							}
+						}finally{}
+					}
 				}
 				try{
 					String w = httpGetRequest("http://localhost:8080/checkForWin");
@@ -155,12 +179,13 @@ public class Game {
 			System.out.print("Want to start a new game?(y/n):");
 			if(scan.next().charAt(0) == 'n') {
 				newGame = false;
-				System.out.println("GOODBYE!");
 			}
 
 			try{
 				httpGetRequest("http://localhost:8080/saveAndReset");
 			}finally{};
 		}
+		System.out.println("GOODBYE!");
+		scan.close();
 	}
 }

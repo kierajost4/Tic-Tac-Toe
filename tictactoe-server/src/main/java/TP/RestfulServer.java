@@ -35,6 +35,7 @@ public class RestfulServer {
         Spark.post("/", this::echoPost);
         Spark.post("/updateBoardP1", this::updateBoardP1);
         Spark.post("/updateBoardP2", this::updateBoardP2);
+        Spark.post("/checkIfValid", this::checkIfValid);
         Spark.get("/", this::echoRequest);
         Spark.get("/board", this::handleBoardRequests);
         Spark.get("/checkForWin", this::checkForWin);
@@ -46,6 +47,19 @@ public class RestfulServer {
         board.saveGame();
         board.resetBoard();
         return " ";
+    }
+
+    public String checkIfValid(Request request, Response response){ 
+        char position = request.body().charAt(11);
+        boolean rangeResult = board.isInRange(position);
+        boolean validPosition = board.isValidPosition(position);
+        if(rangeResult){
+            if(validPosition){
+                return "in range and valid";
+            }
+            return "not valid";
+        }
+        return "OOR";
     }
 
     public String checkForWin(Request request, Response response){
@@ -69,13 +83,13 @@ public class RestfulServer {
     private String updateBoardP1(Request request, Response response){
         char position = request.body().charAt(11);
         board.move(position, player1.getIcon());
-        return "";
+        return "success";
     }
 
     private String updateBoardP2(Request request, Response response){
         char position = request.body().charAt(11);
         board.move(position, player2.getIcon());
-        return "";
+        return "success";
     }
 
     private String echoPost(Request request, Response response){
