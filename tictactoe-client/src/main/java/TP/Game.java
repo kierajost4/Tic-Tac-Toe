@@ -1,7 +1,6 @@
 package TP;
 
 import java.util.Scanner;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
@@ -103,10 +102,16 @@ public class Game {
 	public static void main(String[] args) throws Exception {
 		System.out.println("----Welcome to tictactoe!----");
 		System.out.println("Get three in a row to win!");
+		System.out.println("-----------------------------");
+		
 		Scanner scan = new Scanner(System.in);
 		boolean newGame = true;
 
+		int gameNum = 0;
 		while(newGame) {
+			gameNum++;
+			System.out.println("\tGAME #" + gameNum);
+			System.out.println("-----------------------------");
 			boolean inGame = true;
 			boolean turn = true;
 			while(inGame) {
@@ -138,7 +143,7 @@ public class Game {
 					System.out.println("It's Player 2's turn.");
 					System.out.print("Choose a number between 1 and 9 to play on:");
 					String input2 = scan.next();
-					if(input2.length() != 1){
+					if(input2.length() != 1 || input2.equals(null)){
 						System.out.println("This number is not in range! Player 2 try again.");
 					} else {
 						char position2 = input2.charAt(0);
@@ -176,16 +181,51 @@ public class Game {
 					}
 				}finally{}
 			}
-			System.out.print("Want to start a new game?(y/n):");
-			if(scan.next().charAt(0) == 'n') {
-				newGame = false;
-			}
 
 			try{
 				httpGetRequest("http://localhost:8080/saveAndReset");
+				System.out.println("\nSaved Game #" + gameNum + " and reset board!\n");
 			}finally{};
+
+			boolean displayMenu = true;
+			while(displayMenu){
+
+				System.out.println("Choose one of the following options: ");
+				System.out.println("\t1. Play again");
+				System.out.println("\t2. View past game");
+				System.out.println("\t3. Leave game");
+				System.out.print("Input choice number: ");
+				String choice = scan.next();
+
+				if((!choice.equals("1")) && (!choice.equals("2")) && (!choice.equals("3"))){
+					System.out.println("-------------------------------");
+					System.out.println(" Not a valid option. Try again");
+					System.out.println("-------------------------------");
+				}
+
+				if(choice.charAt(0) == '3') {
+					newGame = false;
+					displayMenu = false;
+					System.out.println("GOODBYE!");
+				}
+
+				if(choice.charAt(0) == '2'){
+					System.out.println("-----------------------------");
+					System.out.println("    Entering Game History");
+					System.out.println("-----------------------------\n");
+					System.out.println("Past Games: ");
+					newGame = false;
+					displayMenu = false;
+				}
+				if(choice.charAt(0) == '1'){
+					System.out.print("\nStarting new game\n");
+					System.out.println("-----------------------------");
+					displayMenu = false;
+				}
+			}
+
 		}
-		System.out.println("GOODBYE!");
+		
 		scan.close();
 	}
 }
