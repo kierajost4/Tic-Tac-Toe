@@ -218,7 +218,7 @@ public class Game {
 					displayMenu = false;
 				}
 				if(choice.charAt(0) == '1'){
-					System.out.print("\nStarting new game\n");
+					System.out.println("\n      Starting new game      ");
 					System.out.println("-----------------------------");
 					displayMenu = false;
 				}
