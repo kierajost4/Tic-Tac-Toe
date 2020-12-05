@@ -184,40 +184,27 @@ public class Game {
 
 			try{
 				httpGetRequest("http://localhost:8080/saveAndReset");
-				System.out.println("\nSaved Game #" + gameNum + " and reset board!\n");
 			}finally{};
 
 			boolean displayMenu = true;
 			while(displayMenu){
 
-				System.out.println("Choose one of the following options: ");
-				System.out.println("\t1. Play again");
-				System.out.println("\t2. View past game");
-				System.out.println("\t3. Leave game");
-				System.out.print("Input choice number: ");
+				System.out.print("Would you like to start a new game? (enter y/n): ");
 				String choice = scan.next();
 
-				if((!choice.equals("1")) && (!choice.equals("2")) && (!choice.equals("3"))){
+				if((!choice.equals("n")) && (!choice.equals("y"))){
 					System.out.println("-------------------------------");
 					System.out.println(" Not a valid option. Try again");
 					System.out.println("-------------------------------");
 				}
 
-				if(choice.charAt(0) == '3') {
+				if(choice.charAt(0) == 'n') {
 					newGame = false;
 					displayMenu = false;
 					System.out.println("GOODBYE!");
 				}
 
-				if(choice.charAt(0) == '2'){
-					System.out.println("-----------------------------");
-					System.out.println("    Entering Game History");
-					System.out.println("-----------------------------\n");
-					System.out.println("Past Games: ");
-					newGame = false;
-					displayMenu = false;
-				}
-				if(choice.charAt(0) == '1'){
+				if(choice.charAt(0) == 'y'){
 					System.out.println("\n      Starting new game      ");
 					System.out.println("-----------------------------");
 					displayMenu = false;

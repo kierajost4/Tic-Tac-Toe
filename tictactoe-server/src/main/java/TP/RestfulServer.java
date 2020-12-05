@@ -37,16 +37,19 @@ public class RestfulServer {
         Spark.post("/updateBoardP2", this::updateBoardP2);
         Spark.post("/checkIfValid", this::checkIfValid);
         Spark.get("/", this::echoRequest);
-        Spark.get("/board", this::handleBoardRequests);
+        Spark.get("/board", this::printBoard);
         Spark.get("/checkForWin", this::checkForWin);
         Spark.get("/saveAndReset", this::saveAndReset);
         //all other routes
     }
 
+
+
+
     public String saveAndReset(Request request, Response response){
         board.saveGame();
         board.resetBoard();
-        return " ";
+        return "";
     }
 
     public String checkIfValid(Request request, Response response){ 
@@ -67,7 +70,7 @@ public class RestfulServer {
         return winner;
     }
 
-    public Object handleBoardRequests(Request request, Response response){
+    public Object printBoard(Request request, Response response){
         Gson gson = new Gson();
         String json = gson.toJson(board.getCurrentGame());
         return json;
