@@ -20,7 +20,7 @@ public class Game {
 
 	//example of url
 	//http://localhost:8080/board
-	//or other get path
+	//or other get path 
 	public static String httpGetRequest(String url) throws Exception{
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
@@ -92,12 +92,13 @@ public class Game {
 	}
 
 	public static void printBoard(char[][] currentGame){
-		System.out.println("-------------");
+		System.out.println("\n-------------");
 		for(int i  = 0; i < 3; i++) {
 			System.out.print("| " + currentGame[i][0] + " | " + currentGame[i][1] + " | " + currentGame[i][2] + " |");
 			System.out.println();
 			System.out.println("-------------");
 		}
+		System.out.println();
 	}
 	public static void main(String[] args) throws Exception {
 		System.out.println("----Welcome to tictactoe!----");
@@ -112,6 +113,9 @@ public class Game {
 			gameNum++;
 			System.out.println("\tGAME #" + gameNum);
 			System.out.println("-----------------------------");
+			System.out.print("SCORE: ");
+			String score =  httpGetRequest("http://localhost:8080/getScore");
+			System.out.println(score);
 			boolean inGame = true;
 			boolean turn = true;
 			while(inGame) {
@@ -182,6 +186,10 @@ public class Game {
 				}finally{}
 			}
 
+			System.out.print("SCORE: ");
+			score =  httpGetRequest("http://localhost:8080/getScore");
+			System.out.println(score);
+
 			try{
 				httpGetRequest("http://localhost:8080/saveAndReset");
 			}finally{};
@@ -189,22 +197,64 @@ public class Game {
 			boolean displayMenu = true;
 			while(displayMenu){
 
-				System.out.print("Would you like to start a new game? (enter y/n): ");
+				System.out.println("\nChoose one of the following options: ");
+				System.out.println("\t1. Play again");
+				System.out.println("\t2. View past game");
+				System.out.println("\t3. Leave game");
+				System.out.print("Input choice number: ");
 				String choice = scan.next();
 
-				if((!choice.equals("n")) && (!choice.equals("y"))){
+				if((!choice.equals("1")) && (!choice.equals("2")) && (!choice.equals("3"))){
 					System.out.println("-------------------------------");
 					System.out.println(" Not a valid option. Try again");
 					System.out.println("-------------------------------");
 				}
 
-				if(choice.charAt(0) == 'n') {
+				if(choice.charAt(0) == '3') {
 					newGame = false;
 					displayMenu = false;
 					System.out.println("GOODBYE!");
 				}
 
-				if(choice.charAt(0) == 'y'){
+				if(choice.charAt(0) == '2'){
+					System.out.println("-----------------------------");
+					System.out.println("    Entering Game History");
+					System.out.println("-----------------------------\n");
+					System.out.println("Past Games: ");
+
+
+
+					for(int i = 1; i < gameNum+1; i++){
+						System.out.println("\tGame #" + i);
+					}
+					System.out.print("Enter the number of the game you want to view: ");
+					boolean invalidInput = true;
+					int index = -1;
+					while(invalidInput){
+						String input = scan.next();
+						if(input.chars().allMatch( Character::isDigit)){
+							index = Integer.parseInt(input) -1;
+							if(index >= 0 && index <= gameNum-1){
+								invalidInput = false;
+							}else{
+								System.out.print("Game number out of range. Try again: ");
+							}
+						}else{
+							System.out.print("Game number out of range. Try again: ");
+						}
+					}	
+					
+					String i = "" + index;
+					char postRequest = i.charAt(0);
+					String pastGame = httpPostRequest("http://localhost:8080/getPastGame", postRequest);
+					int gameNumber = index +1;
+					System.out.println("------------------------------");
+					System.out.println("    Viewing Game Number " + gameNumber + ":");
+					System.out.println("------------------------------");
+					printBoard(formatBoard(pastGame));
+				
+				}
+				if(choice.charAt(0) == '1'){
 					System.out.println("\n      Starting new game      ");
 					System.out.println("-----------------------------");
 					displayMenu = false;

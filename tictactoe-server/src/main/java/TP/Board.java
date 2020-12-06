@@ -1,12 +1,13 @@
 package TP;
+import java.util.Arrays;
+import java.util.ArrayList;
+
 //import spark.Spark;
 //import spark.Request;
 //import spark.Response;
 //import com.google.gson.Gson;
 //import com.google.gson.GsonBuilder;
 //import static spark.Spark.*;
-
-import java.util.ArrayList;
 
 public class Board {
 
@@ -15,7 +16,10 @@ public class Board {
 
     public char[][] getCurrentGame() {
         return currentGame;
-    }
+	}
+	public char[][] getPastGame(int index){
+		return savedGames.get(index);
+	}
 
     public void move(char place, char symbol) {
 		switch(place) {
@@ -136,6 +140,11 @@ public class Board {
   	}
 
   	public void saveGame() {
-    	savedGames.add(currentGame);
+
+		char[][] deepCopy = new char[3][3];
+		for(int i = 0; i < 3; i++){
+			deepCopy[i] = Arrays.copyOf(currentGame[i], 3);
+		}
+		savedGames.add(deepCopy);
   	}
 }

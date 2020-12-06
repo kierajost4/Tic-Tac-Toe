@@ -36,14 +36,27 @@ public class RestfulServer {
         Spark.post("/updateBoardP1", this::updateBoardP1);
         Spark.post("/updateBoardP2", this::updateBoardP2);
         Spark.post("/checkIfValid", this::checkIfValid);
+        Spark.post("/getPastGame", this::getPastGame);
         Spark.get("/", this::echoRequest);
         Spark.get("/board", this::printBoard);
         Spark.get("/checkForWin", this::checkForWin);
         Spark.get("/saveAndReset", this::saveAndReset);
+        Spark.get("/getScore", this::getScore);
         //all other routes
     }
 
+    public String getScore(Request request, Response response){
+        return "Player 1: " + player1.getWins() + " | Player 2: " + player2.getWins();
+    }
 
+    public String getPastGame(Request request, Response response){
+        String body = request.body();
+        String position = body.substring(11,body.length()-1);
+        int index = Integer.parseInt(position);
+        Gson gson = new Gson();
+        String json = gson.toJson(board.getPastGame(index));
+        return json;
+    }
 
 
     public String saveAndReset(Request request, Response response){
@@ -67,6 +80,14 @@ public class RestfulServer {
 
     public String checkForWin(Request request, Response response){
         String winner = Character.toString(board.checkForWin());
+        if(winner.equals("X")){
+            player1.incWins();
+        }
+
+        if(winner.equals("O")){
+            player2.incWins();
+        }
+
         return winner;
     }
 
