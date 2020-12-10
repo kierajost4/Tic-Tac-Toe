@@ -46,7 +46,7 @@ Only one pair of players can interact with the the web server at once. These pla
 ##### 3. Non-Persistant Storage
 The past games are stored in the memory of the web server. This is an obvious issue because 
 1. this would take up too much memory if the users don't choose to reset the history. 
-2. The stroage isn't persistant. if the Kubernetes pod is redeployed or if the server is restarted, all saved games, the current game number, and the score is lost. 
+2. The stroage isn't persistant. if the Kubernetes pod is redeployed or if the server is restarted, then all saved games, the current game number, and the score are lost. 
 In the future, we would store past games in a database for persistant storage. 
 
 ##### 4. Lack of High Avalability:
