@@ -56,7 +56,9 @@ Our system is not highly available. If a pod were to crash we would have no way 
 We chose to to view these downfalls as another learning opportunity. Upon further research, we have deeply considered the ways in which we could redesign our project to effectively utalize containerization and make it more appropriate for public use. Ask us about this!
 
 ### Takaways
-This process taught is a lot! Not only did we effectvely work as a team, but we got to research concepts and implement technology that was completely new to us. From this, we’ve gained experience with analyzing a lot of documentation and learned new ways of problem solving. Implementing this project took research about RESTful APIs, HTTP protocol, Docker, Kubernetes, and Git. After all of that, we continued research about how to make our project better in the future. We are excited to use the several skills and concepts we learned in future classes, internships, and jobs.
+This process taught is a lot! Not only did we effectvely work as a team, but we got to research concepts and implement technology that was completely new to us. From this, we’ve gained experience with analyzing a lot of documentation and learned new ways of problem solving. Implementing this project took research about RESTful APIs, HTTP protocol, Docker, Kubernetes, and Git. After all of that, we continued research about how to make our project better in the future. Ask us about the obsicals that we encountered!
+
+We are excited to use the several skills and concepts we learned in future classes, internships, and jobs.
 
 
 
