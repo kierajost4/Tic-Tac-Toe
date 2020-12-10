@@ -32,4 +32,9 @@ public class Player {
 	public char getIcon() {
 		return icon;
 	}
+	public void resetScore(){
+		wins = 0;
+		losses = 0;
+	}
+
 }

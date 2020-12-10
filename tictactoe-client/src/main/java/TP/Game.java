@@ -108,10 +108,14 @@ public class Game {
 		Scanner scan = new Scanner(System.in);
 		boolean newGame = true;
 
-		int gameNum = 0;
 		while(newGame) {
-			gameNum++;
-			System.out.println("\tGAME #" + gameNum);
+			String str = "";
+ 			try{
+                        	httpGetRequest("http://localhost:8080/incGameNum");
+                        	str = httpGetRequest("http://localhost:8080/getGameNum");
+                	}finally{}
+                        int gameNumber = Integer.parseInt(str);
+			System.out.println("\tGAME #" + gameNumber);
 			System.out.println("-----------------------------");
 			System.out.print("SCORE: ");
 			String score =  httpGetRequest("http://localhost:8080/getScore");
@@ -126,7 +130,14 @@ public class Game {
 				if(turn){
 					System.out.println("It's Player 1's turn.");
 					System.out.print("Choose a number between 1 and 9 to play on: ");
-					String input1 = scan.next();
+				
+					String input1 = "";
+					try{
+						input1 = scan.next();
+					}catch(Exception e){
+						System.out.println("Did not get input");
+					}
+				
 					if(input1.length() != 1){
 						System.out.println("This number is not in range! Player 1 try again.");
 					}else{
@@ -200,58 +211,73 @@ public class Game {
 				System.out.println("\nChoose one of the following options: ");
 				System.out.println("\t1. Play again");
 				System.out.println("\t2. View past game");
-				System.out.println("\t3. Leave game");
+				System.out.println("\t3. Reset history");
+				System.out.println("\t4. Leave game");
 				System.out.print("Input choice number: ");
 				String choice = scan.next();
 
-				if((!choice.equals("1")) && (!choice.equals("2")) && (!choice.equals("3"))){
+				if((!choice.equals("1")) && (!choice.equals("2")) && (!choice.equals("3")) && (!choice.equals("4"))){
 					System.out.println("-------------------------------");
 					System.out.println(" Not a valid option. Try again");
 					System.out.println("-------------------------------");
 				}
 
-				if(choice.charAt(0) == '3') {
+				if(choice.charAt(0) == '4') {
 					newGame = false;
 					displayMenu = false;
 					System.out.println("GOODBYE!");
+				}
+
+				if(choice.charAt(0) == '3'){
+					try{
+                                		httpGetRequest("http://localhost:8080/resetHistory");
+                                		str = httpGetRequest("http://localhost:8080/getGameNum");
+                        		}finally{};
+					System.out.println("-----------------------------");
+                                        System.out.println("        History Reset!       ");
+                                        System.out.println("-----------------------------\n");
+				
+					gameNumber = Integer.parseInt(str);
+				
 				}
 
 				if(choice.charAt(0) == '2'){
 					System.out.println("-----------------------------");
 					System.out.println("    Entering Game History");
 					System.out.println("-----------------------------\n");
-					System.out.println("Past Games: ");
-
-
-
-					for(int i = 1; i < gameNum+1; i++){
-						System.out.println("\tGame #" + i);
-					}
-					System.out.print("Enter the number of the game you want to view: ");
-					boolean invalidInput = true;
-					int index = -1;
-					while(invalidInput){
-						String input = scan.next();
-						if(input.chars().allMatch( Character::isDigit)){
-							index = Integer.parseInt(input) -1;
-							if(index >= 0 && index <= gameNum-1){
+					if(gameNumber == 0){
+						System.out.println("There are no past games!");
+					}else{
+						System.out.println("Past Games: ");
+						for(int i = 1; i < gameNumber+1; i++){
+							System.out.println("\tGame #" + i);
+						}
+						System.out.print("Enter the number of the game you want to view: ");
+						boolean invalidInput = true;
+						int index = -1;
+						while(invalidInput){
+							String input = scan.next();
+							if(input.chars().allMatch( Character::isDigit)){
+								index = Integer.parseInt(input) -1;
+								if(index >= 0 && index <= gameNumber-1){
 								invalidInput = false;
+								}else{
+									System.out.print("Game number out of range. Try again: ");
+								}
 							}else{
 								System.out.print("Game number out of range. Try again: ");
 							}
-						}else{
-							System.out.print("Game number out of range. Try again: ");
-						}
-					}	
+						}	
 					
-					String i = "" + index;
-					char postRequest = i.charAt(0);
-					String pastGame = httpPostRequest("http://localhost:8080/getPastGame", postRequest);
-					int gameNumber = index +1;
-					System.out.println("------------------------------");
-					System.out.println("    Viewing Game Number " + gameNumber + ":");
-					System.out.println("------------------------------");
-					printBoard(formatBoard(pastGame));
+						String i = "" + index;
+						char postRequest = i.charAt(0);
+						String pastGame = httpPostRequest("http://localhost:8080/getPastGame", postRequest);
+						int n = index +1;
+						System.out.println("------------------------------");
+						System.out.println("    Viewing Game Number " + n + ":");
+						System.out.println("------------------------------");
+						printBoard(formatBoard(pastGame));
+					}
 				
 				}
 				if(choice.charAt(0) == '1'){

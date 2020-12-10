@@ -41,8 +41,30 @@ public class RestfulServer {
         Spark.get("/board", this::printBoard);
         Spark.get("/checkForWin", this::checkForWin);
         Spark.get("/saveAndReset", this::saveAndReset);
+	Spark.get("/resetHistory", this::resetHistory);
         Spark.get("/getScore", this::getScore);
+	Spark.get("/getGameNum", this::getGameNum);
+	Spark.get("/incGameNum", this::incGameNum);
         //all other routes
+    }
+    
+     public String getGameNum(Request request, Response response){
+	     int gameNum = board.getGameNum();
+	     return Integer.toString(gameNum);
+     }
+
+     public String incGameNum(Request request, Response response){
+             board.incGameNum();
+	     return "";
+     }
+
+
+
+    public String resetHistory(Request request, Response response){
+	player1.resetScore();
+	player2.resetScore();
+	board.resetHistory();
+	return "";
     }
 
     public String getScore(Request request, Response response){
@@ -62,6 +84,8 @@ public class RestfulServer {
     public String saveAndReset(Request request, Response response){
         board.saveGame();
         board.resetBoard();
+	//player1.resetScore();
+	//player2.resetScore();
         return "";
     }
 

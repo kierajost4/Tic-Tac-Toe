@@ -12,6 +12,8 @@ RUN ["mvn", "clean"]
 RUN ["mvn", "package"]
 
 EXPOSE 8080
-CMD ["java", "-jar", "target/TP-jar-with-dependencies.jar"]
+
+#ENTRYPOINT ["java", "-jar", "target/TP-jar-with-dependencies.jar"]
+ENTRYPOINT ["bash"]
 
 

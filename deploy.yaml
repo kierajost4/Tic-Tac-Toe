@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+        name: tictactoe-pod
+        labels:
+                app: tictactoe-pod
+spec:
+        containers:
+                - name: rest-server
+                  image: kierajost/370-tp:server
+                  imagePullPolicy: Always
+                  ports:
+                          - containerPort: 8080
+                - name: client
+                  image: kierajost/370-tp:client
+                  stdin: true
+                  tty: true
+                  imagePullPolicy: Always
+                  ports:
+                           - containerPort: 8090
+---
+apiVersion: v1
+kind: Service
+metadata:
+        name: tictactoe-service
+        labels:
+                app: tictactoe-service
+spec:
+        type: NodePort
+        selector: 
+                app: tictactoe-pod
+        ports:
+                - name: http
+                  protocol: TCP
+                  targetPort: 8080
+                  port: 80
+                  nodePort: 30001
+      

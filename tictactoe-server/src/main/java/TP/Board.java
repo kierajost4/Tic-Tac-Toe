@@ -12,14 +12,29 @@ import java.util.ArrayList;
 public class Board {
 
     private ArrayList<char[][]> savedGames = new ArrayList<char[][]>();
-    private char[][] currentGame = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9',}};
+    private char[][] currentGame = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
+    int gameNum = 0;
+
+    public int getGameNum(){
+	return gameNum;
+    }
+
+    public void incGameNum(){
+	gameNum++;
+    }
+
 
     public char[][] getCurrentGame() {
         return currentGame;
-	}
+    }
 	public char[][] getPastGame(int index){
 		return savedGames.get(index);
-	}
+    }
+
+    public void resetHistory(){
+	savedGames = new ArrayList<char[][]>();
+    	gameNum = 0;
+    }
 
     public void move(char place, char symbol) {
 		switch(place) {
