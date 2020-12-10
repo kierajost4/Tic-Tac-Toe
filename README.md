@@ -11,29 +11,20 @@ The purpose of our project was for us to gain experience with RESTful APIs, Dock
 This directory containes our game driver. The client application gives the users options to view past games, play again, reset the history, or leave the game. Based on the users input, it makes the appropriate HTTP requests to the server and provides the appropriate output to the users. Our design requires two users to be on the same machine and playing the game on the same instance of the client.
 
 #### tictactoe-server
-This directory contains our RESTFUL API web server. It services all request made by the client application. It also contains the logic of the game, keeps track of past games, the score, and the game number until the user chooses to reset the game history. As long as the kubernetes pod stays running, the users can leave the game and reattach to the client at any point to continue at whatever game number they left off at.
+This directory contains our RESTFUL API web server. It services the HTTP request made by the client application. It also contains the logic of the game, keeps track of past games, the score, and the game number until the user chooses to reset the game history. As long as the kubernetes pod stays running, the users can leave the game and reattach to the client container at any point to continue at the game number they left off at.
 
-## Usage
-To compile the RESTful web server, make sure you are at the root of the the *tictactoe-server* directory, and run the commands:
-```
-$ mvn clean
-$ mvn package
-```
 
-Then to run the application, run the command:
-```
-$ java -cp target/TP-jar-with-dependencies.jar TP.RestfulServer
-```
 ## Minikube Usage
 
-Run kubernetes pod:
+Run the kubernetes pod:
 ```
 kubectl apply -f deploy.yaml
 ```
-Attatch to the client container which starts a bash session as the entrypoint:
+Attatch to the client container:
 ```
 kubectl attach pod/tictactoe-pod -c client -i -t
 ```
+This will run bash as it is the entrypoint for the client container.
 
 Run the client application:
 ```
