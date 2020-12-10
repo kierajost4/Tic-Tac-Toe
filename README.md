@@ -11,7 +11,7 @@ The purpose of our project was for us to gain experience with RESTful APIs, Dock
 This directory containes our game driver. The client application gives the users options to view past games, play again, reset the history, or leave the game. Based on the users input, it makes the appropriate HTTP requests to the server and provides the appropriate output to the users. Our design requires two users to be on the same machine and playing the game on the same instance of the client.
 
 #### tictactoe-server
-This directory contains our RESTFUL API web server. It services the HTTP request made by the client application. It also contains the logic of the game, keeps track of past games, the score, and the game number until the user chooses to reset the game history. As long as the kubernetes pod stays running, the users can leave the game and reattach to the client container at any point to continue at the game number they left off at.
+This directory contains our RESTful API web server. It services the HTTP request made by the client application. It also contains the logic of the game, keeps track of past games, the score, and the game number until the user chooses to reset the game history. As long as the kubernetes pod stays running, the users can leave the game and reattach to the client container at any point to continue at the game number they left off at.
 
 
 ## Minikube Usage
