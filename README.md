@@ -39,7 +39,7 @@ docker run -p 8080:8080 myimage
 ``` 
 
 
-## Notes from Author's
+## Notes from Authors
 
 ### Design Downfalls
 This project was successful in introducing us to a number of interesting technologies. However, as we began to understand the purpose of these technologies better, we now realize that because of the simplicity of our project, there are a number of downfalls to our design if our application were to be widely used by the public. We chose to to view this as another learning opportunity.
