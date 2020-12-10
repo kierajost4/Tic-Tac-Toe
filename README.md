@@ -5,7 +5,7 @@ Wyatt Poulos,
 Megan Booher
 
 ## Description
-The purpose of building this program was to gain experience with RESTful APIs, Docker, Kubernetes, Git, and working as a team by developing a program for tic-tac-toe games and tournaments. Instead of developing this game as a monolithic application like we were used to, we achieved our learning goals by implementing a RESTful API web server and containerizing it inside a Docker image, developing a client and containerizing it inside another Docker image, and managing these two containers inside one Kubernetes pod using minikube. 
+The purpose of building this program was to gain experience with RESTful APIs, Docker, Kubernetes, Git, and working as a team by developing a Java program for tic-tac-toe games and tournaments. Instead of developing this game as a monolithic application like we were used to, we achieved our learning goals by implementing a RESTful API web server and containerizing it inside a Docker image, developing a client and containerizing it inside another Docker image, and managing these two containers inside one Kubernetes pod using minikube. 
 
 #### tictactoe-client
 This directory containes our game driver program. It gives the users options to view past games, play again, reset the history, or leave the game. Based on the users input, it makes the appropriate HTTP requests to the server and provides the appropriate output to the users. Our design requires two users to be on the same machine and playing the game on the same instance of the client.
