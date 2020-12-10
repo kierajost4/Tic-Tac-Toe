@@ -34,7 +34,7 @@ java -jar target/TP-jar-with-dependencies.jar Game.java
 ## Notes from Authors
 
 ### Design Downfalls
-This project was successful in introducing us to a number of interesting technologies. However, as we began to understand the purpose of these technologies better, we now realize that because of the simplicity of our project, there are a number of downfalls to our design if our application were to be widely used by the public. These downfalls include the following.
+This project was successful in introducing us to a number of interesting technologies. However, as we began to understand the purpose of these technologies better, we now realize that because of the simplicity of our project, there are a number of downfalls to our design if our application were to be widely used by the public. These downfalls include the following:
 
 ##### 1. User friendliness: 
 The complexity and quantity of commands needed to simply begin the program essentially makes the application useless and convoluted to anyone other than
