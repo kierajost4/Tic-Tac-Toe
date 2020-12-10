@@ -5,7 +5,7 @@ Wyatt Poulos,
 Megan Booher
 
 ## Description
-The purpose of our project was for us to gain experience with RESTful APIs, Docker, Kubernetes, Git, and working as a team by developing a program for tic-tac-toe games and tournaments. Instead of developing this game as a monolithic application like we were used to, we achieved our learning goals by implementing a RESTful API web server and containerizing it inside a Docker image, developing and containerizing a client inside another Docker image, and managing these two containers inside one Kubernetes pod. 
+The purpose of our project was for us to gain experience with RESTful APIs, Docker, Kubernetes, Git, and working as a team by developing a program for tic-tac-toe games and tournaments. Instead of developing this game as a monolithic application like we were used to, we achieved our learning goals by implementing a RESTful API web server and containerizing it inside a Docker image, developing and containerizing a client inside another Docker image, and managing these two containers inside one Kubernetes pod using minikube. 
 
 #### tictactoe-client
 This directory containes our game driver. The client application gives the users options to view past games, play again, reset the history, or leave the game. Based on the users input, it makes the appropriate HTTP requests to the server and provides the appropriate output to the users. Our design requires two users to be on the same machine and playing the game on the same instance of the client.
@@ -14,30 +14,31 @@ This directory containes our game driver. The client application gives the users
 This directory contains our RESTFUL API web server. It services all request made by the client application. It also contains the logic of the game, keeps track of past games, the score, and the game number until the user chooses to reset the game history. As long as the kubernetes pod stays running, the users can leave the game and reattach to the client at any point to continue at whatever game number they left off at.
 
 ## Usage
-To compile the RESTful web server, make sure you are at the root of the the *tictactoe-server* directory, and run the command:
+To compile the RESTful web server, make sure you are at the root of the the *tictactoe-server* directory, and run the commands:
 ```
-bash mvn-build.sh
+$ mvn clean
+$ mvn package
 ```
-This is a bash script that runs the commands:
-1. mvn clean
-2. mvn package
 
 Then to run the application, run the command:
 ```
-java -cp target/TP-jar-with-dependencies.jar TP.RestfulServer
+$ java -cp target/TP-jar-with-dependencies.jar TP.RestfulServer
 ```
-## Docker
-Use the *Dockerfile* to build and run the RESTful web server in a containerized environment.
+## Minikube Usage
 
-To use the *Dockerfile* to build a docker image, make sure you are at the root of the *tictactoe-server* directory, and run the command:
+Run kubernetes pod:
 ```
-docker build -t myimage .
+kubectl apply -f deploy.yaml
 ```
-Then, to run the Docker image as a container, run the command:
+Attatch to the client container which starts a bash session as the entrypoint:
 ```
-docker run -p 8080:8080 myimage
-``` 
+kubectl attach pod/tictactoe-pod -c client -i -t
+```
 
+Run the client application:
+```
+java -jar target/TP-jar-with-dependencies.jar Game.java
+```
 
 ## Notes from Authors
 
@@ -64,7 +65,7 @@ Our system is not highly available. If a pod were to crash we would have no way 
 We chose to to view these downfalls as another learning opportunity. Upon further research, we have deeply considered the ways in which we could redesign our project to effectively utalize containerization and make it more appropriate for public use. Ask us about this!
 
 ##### Takaways
-This process taught is a lot! Not only did we effectvely work as a team, but we got to research concepts and implement technology that was completely new to us. From this, we’ve gained experience with analyzing a lot of documentation and learned new ways of problem solving. Implementing this project took research about RESTful APIs, HTTP protocol, Docker, Kubernetes, and Git. After all of that, we continued research about how to make our project better in the future. We are excited to use the several skills and concepts we learned in future classes, jobs, and internships.
+This process taught is a lot! Not only did we effectvely work as a team, but we got to research concepts and implement technology that was completely new to us. From this, we’ve gained experience with analyzing a lot of documentation and learned new ways of problem solving. Implementing this project took research about RESTful APIs, HTTP protocol, Docker, Kubernetes, and Git. After all of that, we continued research about how to make our project better in the future. We are excited to use the several skills and concepts we learned in future classes, internships, and jobs.
 
 
 
