@@ -52,10 +52,10 @@ In the future, we would store past games in a database for persistant storage.
 ##### 4. Lack of High Avalability:
 Our system is not highly available. If a pod were to crash we would have no way of transferring the workload to another pod and let alone no way of knowing it crashed. In the future, we could implement DaemonSets to monitor the node. This would allow us to monitor all of the pods and take action if one of them were to crash. This would provide failure detection and thus we would be able to move service to a new pod and create a high availability and good user experience.
 
-##### Future Considerations
+### Future Considerations
 We chose to to view these downfalls as another learning opportunity. Upon further research, we have deeply considered the ways in which we could redesign our project to effectively utalize containerization and make it more appropriate for public use. Ask us about this!
 
-##### Takaways
+### Takaways
 This process taught is a lot! Not only did we effectvely work as a team, but we got to research concepts and implement technology that was completely new to us. From this, we’ve gained experience with analyzing a lot of documentation and learned new ways of problem solving. Implementing this project took research about RESTful APIs, HTTP protocol, Docker, Kubernetes, and Git. After all of that, we continued research about how to make our project better in the future. We are excited to use the several skills and concepts we learned in future classes, internships, and jobs.
 
 
