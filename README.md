@@ -41,7 +41,7 @@ The complexity and quantity of commands needed to simply begin the program essen
 those who’ve created it. In the future, we would design a user friendly website for the users to interact with in place of the client application. 
 
 ##### 2. Scalability
-Only one pair of players can interact with the the web server at once. These players also have to be on the same instance of the client, on the same machine. In the real world, our server should not have been designed to only provide one instance of the board and players. It also should have been designed so that the users can play each other on separate instances of the client, on different machines. This would involve redisigning the application to breaking out the client from the server, and allow the server and the client to scale separatley.
+Only one pair of players can interact with the the web server at once. These players also have to be on the same instance of the client, on the same machine. In the real world, our server should not have been designed to only provide one instance of the board and players. It also should have been designed so that the users can play each other on separate instances of the client, on different machines. This would involve redisigning the application to break out the client from the server, and allow the server and the client to scale separatley.
 
 ##### 3. Non-Persistant Storage
 The past games are stored in the memory of the web server. This is an obvious issue because 
