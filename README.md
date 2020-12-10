@@ -5,17 +5,13 @@ Wyatt Poulos,
 Megan Booher
 
 ## Description
-The purpose of our project was of us to gain experience with RESTful APIs, Docker, Kubernetes, Git, and working as a team through developing a program for tic-tac-toe games and tournaments. Instead of developing this game as a monolithic application like we were used to, we achieved our learning goals by implementing a RESTful API web server and containerizing it inside a Docker image, developing and containerizing a client inside another Docker image, and managing these two containers inside one Kubernetes pod. 
+The purpose of our project was for us to gain experience with RESTful APIs, Docker, Kubernetes, Git, and working as a team by developing a program for tic-tac-toe games and tournaments. Instead of developing this game as a monolithic application like we were used to, we achieved our learning goals by implementing a RESTful API web server and containerizing it inside a Docker image, developing and containerizing a client inside another Docker image, and managing these two containers inside one Kubernetes pod. 
 
-##### tictactoe-server
-The RESTful API contains all the logic of the game, the current state of the game, the score, and stores past games. 
+#### tictactoe-client
+This directory containes our game driver. The client application gives the users options to view past games, play again, reset the history, or leave the game. Based on the users input, it makes the appropriate HTTP requests to the server and provides the appropriate output to the users. Our design requires two users to be on the same machine and playing the game on the same instance of the client.
 
-##### tictactoe-client 
-The client acts as a game driver to take in input from the users, communicate with the web server, and provide the users with the correct output. 
-
-
-
-Our design requires two users to be on the same machine and playing the game on the same instance of the client. The client application gives the users options to view past games, play again, reset the history, or leave the game. As long as the kubernetes pod stays running, the server will keep track of old gamesm the score, and the game number until the user chooses to reset the history. If the users leaves the game, they can reattach to the client at any point to continue at whatever game number they left off at.
+#### tictactoe-server
+This directory contains our RESTFUL API web server. It services all request made by the client application. It also contains the logic of the game, keeps track of past games, the score, and the game number until the user chooses to reset the game history. As long as the kubernetes pod stays running, the users can leave the game and reattach to the client at any point to continue at whatever game number they left off at.
 
 
 
