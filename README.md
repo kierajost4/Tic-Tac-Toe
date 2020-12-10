@@ -1,4 +1,4 @@
-Tic-Tac-Toe
+# Tic-Tac-Toe
 ##### Authors:
 Kiera Jost,
 Wyatt Poulos,
